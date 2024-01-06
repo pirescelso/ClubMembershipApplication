@@ -8,7 +8,7 @@
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {},
 		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -26,6 +26,17 @@
 
 	// Configure tool-specific properties.
 	// "customizations": {},
+	"customizations": {
+        "vscode": {
+            "extensions": [
+                "vscode-icons-team.vscode-icons",
+                "kreativ-software.csharpextensions",
+                "ms-dotnettools.csdevkit",
+                "eamodio.gitlens",
+                "amazonwebservices.aws-toolkit-vscode"
+            ]
+        }
+    }
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
