@@ -1,6 +1,6 @@
 ﻿namespace ClubMembershipApplication;
 
-public class CommonOutputText
+public static class CommonOutputText
 {
     private static string MainHeading
     {
@@ -19,7 +19,6 @@ public class CommonOutputText
             return $"{heading}{Environment.NewLine}{new string('-', heading.Length)}";
         }
     }
-
     private static string LoginHeading
     {
         get
@@ -36,18 +35,14 @@ public class CommonOutputText
         Console.WriteLine();
         Console.WriteLine();
     }
-
-        public static void WriteLoginHeading()
+    public static void WriteLoginHeading()
     {
-        Console.Clear();
         Console.WriteLine(LoginHeading);
         Console.WriteLine();
         Console.WriteLine();
     }
-
-        public static void WriteRegistrationHeading()
+    public static void WriteRegistrationHeading()
     {
-        Console.Clear();
         Console.WriteLine(RegistrationHeading);
         Console.WriteLine();
         Console.WriteLine();

@@ -6,7 +6,6 @@ public delegate bool StringLengthValidDel(string fieldVal, int min, int max);
 public delegate bool DateValidDel(string fieldVal, out DateTime validDateTime);
 public delegate bool PatternMatchValidDel(string fieldVal, string pattern);
 public delegate bool CompareFieldsValidDel(string fieldVal, string fieldValCompare);
-
 public class CommonFieldValidatorFunctions
 {
     private static RequiredValidDel _requiredValidDel = null;
@@ -36,7 +35,6 @@ public class CommonFieldValidatorFunctions
             return _stringLengthValidDel;
         }
     }
-
     public static DateValidDel DateFieldValidDel
     {
         get
@@ -47,13 +45,12 @@ public class CommonFieldValidatorFunctions
             return _dateValidDel;
         }
     }
-
     public static PatternMatchValidDel PatternMatchValidDel
     {
         get
         {
             if (_patternMatchValidDel == null)
-                _patternMatchValidDel = new PatternMatchValidDel(FieldPatternhValid);
+                _patternMatchValidDel = new PatternMatchValidDel(FieldPatternValid);
 
             return _patternMatchValidDel;
         }
@@ -69,26 +66,46 @@ public class CommonFieldValidatorFunctions
             return _compareFieldsValidDel;
         }
     }
+
     private static bool RequiredFieldValid(string fieldVal)
     {
-        return !string.IsNullOrEmpty(fieldVal);
+        if (!string.IsNullOrEmpty(fieldVal))
+            return true;
+
+        return false;
     }
+
     private static bool StringFieldLengthValid(string fieldVal, int min, int max)
     {
-        return fieldVal.Length >= min && fieldVal.Length <= max;
-    }
-    private static bool DateFieldValid(string fieldVal, out DateTime validDateTime)
-    {
-        return DateTime.TryParse(fieldVal, out validDateTime);
-    }
-    private static bool FieldPatternhValid(string fieldVal, string pattern)
-    {
-        return Regex.IsMatch(fieldVal, pattern);
-    }
-    private static bool FieldComparisonValid(string fieldVal, string fieldValCompare)
-    {
-        return fieldVal == fieldValCompare;
+        if (fieldVal.Length >= min && fieldVal.Length <= max)
+            return true;
+
+        return false;
     }
 
+    private static bool DateFieldValid(string dateTime, out DateTime validDateTime)
+    {
+        if (DateTime.TryParse(dateTime, out validDateTime))
+            return true;
 
+        return false;
+    }
+
+    private static bool FieldPatternValid(string fieldVal, string regularExpressionPattern)
+    {
+        Regex regex = new Regex(regularExpressionPattern);
+
+        if (regex.IsMatch(fieldVal))
+            return true;
+
+        return false;
+    }
+
+    private static bool FieldComparisonValid(string field1, string field2)
+    {
+        if (field1.Equals(field2))
+            return true;
+
+        return false;
+    }
 }

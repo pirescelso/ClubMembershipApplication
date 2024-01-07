@@ -1,6 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using ClubMembershipApplication;
+using ClubMembershipApplication.Views;
 
-app.MapGet("/", () => "Hello World!");
+IView mainView = Factory.GetMainViewObject();
+mainView.RunView();
 
-app.Run();
+Console.ReadKey();
+
+
+// var builder = WebApplication.CreateBuilder(args);
+// var app = builder.Build();
+
+// app.MapGet("/", () => "Hello World!");
+
+// app.Run();
