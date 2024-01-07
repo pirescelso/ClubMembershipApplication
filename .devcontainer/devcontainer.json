@@ -33,7 +33,8 @@
                 "kreativ-software.csharpextensions",
                 "ms-dotnettools.csdevkit",
                 "eamodio.gitlens",
-                "amazonwebservices.aws-toolkit-vscode"
+                "amazonwebservices.aws-toolkit-vscode",
+				"jmrog.vscode-nuget-package-manager"
             ]
         }
     }

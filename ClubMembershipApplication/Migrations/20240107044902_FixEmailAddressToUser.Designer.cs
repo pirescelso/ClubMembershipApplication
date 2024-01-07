@@ -3,6 +3,7 @@ using System;
 using ClubMembershipApplication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClubMembershipApplication.Migrations
 {
     [DbContext(typeof(ClubMembershipDbContext))]
-    partial class ClubMembershipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240107044902_FixEmailAddressToUser")]
+    partial class FixEmailAddressToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");

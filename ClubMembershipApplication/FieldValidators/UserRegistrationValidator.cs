@@ -1,4 +1,5 @@
-﻿using FieldValidatorAPI;
+﻿using ClubMembershipApplication.Data;
+using FieldValidatorAPI;
 using static ClubMembershipApplication.FieldValidators.FieldConstants;
 
 namespace ClubMembershipApplication.FieldValidators;
@@ -23,6 +24,7 @@ public class UserRegistrationValidator : IFieldValidator
     EmailExistsDel _emailExistsDel = null;
 
     string[] _fieldArray = null;
+    IRegister _register = null;
 
     public string[] FieldArray
     {
@@ -40,14 +42,15 @@ public class UserRegistrationValidator : IFieldValidator
 
     public FieldValidatorDel ValidatorDel => _fieldValidatorDel;
 
-    public UserRegistrationValidator()
+    public UserRegistrationValidator(IRegister register)
     {
-        InitializeValidatorDelegate();
+        _register = register;
     }
 
     public void InitializeValidatorDelegate()
     {
         _fieldValidatorDel = new FieldValidatorDel(ValidField);
+        _emailExistsDel = new EmailExistsDel(_register.EmailExists);
 
         _requiredValidDel = CommonFieldValidatorFunctions.RequiredFieldValidDel;
         _stringLengthValidDel = CommonFieldValidatorFunctions.StringLengthFieldValidDel;
@@ -70,6 +73,10 @@ public class UserRegistrationValidator : IFieldValidator
                 fieldInvalidMessage = (fieldInvalidMessage == string.Empty
                     && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern))
                     ? $"You must enter a valid email address{Environment.NewLine}"
+                    : fieldInvalidMessage;
+                fieldInvalidMessage = (fieldInvalidMessage == string.Empty
+                    && !_emailExistsDel(fieldValue))
+                    ? $"This email address already exists. Please try again{Environment.NewLine}"
                     : fieldInvalidMessage;
                 break;
 
